@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  >
+  <com.autonavi.mapapi.MapView
+  android:id="@+id/mapView"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:clickable="true"
+  android:enabled="true"
+  android:apiKey="D2091D3F287D77BD876B83392574A76DEBE8A151A69F6A52D8DC1884D6CA3C4007AC124066507C89" 
+  >
+  </com.autonavi.mapapi.MapView>
+  <LinearLayout 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="horizontal"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:background="#33000000"
+  >
+  <LinearLayout 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="horizontal"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+
+  >
+  <Button
+  android:id="@+id/setStartAndEnd"
+  android:layout_width="60dip"
+  android:layout_height="wrap_content"
+  android:background="@drawable/search_11"
+  ></Button>
+  <Button
+  android:id="@+id/CalculateRoute"
+  android:layout_width="60dip"
+  android:layout_height="wrap_content"
+  android:background="@drawable/calculate_11"
+  ></Button>
+  </LinearLayout>
+  <LinearLayout 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="horizontal"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_marginLeft="15dip"
+  android:layout_gravity="right"
+  android:gravity="right"
+
+  >
+  <ImageButton
+  android:id="@+id/driving"
+  android:layout_width="60dip"
+  android:layout_height="wrap_content"
+  android:background="@drawable/driving"
+  ></ImageButton>
+  <ImageButton
+  android:id="@+id/bus"
+  android:layout_width="60dip"
+  android:layout_height="wrap_content"
+  android:background="@drawable/transit"
+  ></ImageButton>
+  <ImageButton
+  android:id="@+id/walk"
+  android:layout_width="60dip"
+  android:layout_height="wrap_content"
+  android:adjustViewBounds="true"
+  android:background="@drawable/walk"
+
+  ></ImageButton>
+  </LinearLayout>
+  </LinearLayout>
+</FrameLayout>
