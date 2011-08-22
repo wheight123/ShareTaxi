@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, Main!</string>
-    <string name="app_name">MapApiRouteDemo</string>
+    <string name="app_name">Phone 行天下</string>
     <string name="about">MapApiRouteDemo主要展示MapApi路径规划及PoiSearch功能，应用该功能需要先点击左上角放大镜按钮设置起点及终点。</string>
+    <string name="ok">OK</string>
 </resources>

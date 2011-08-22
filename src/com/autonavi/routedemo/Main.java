@@ -3,6 +3,7 @@ package com.autonavi.routedemo;
 import java.io.IOException;
 import java.util.List;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -17,9 +18,11 @@ import android.view.View;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.autonavi.mapapi.GeoPoint;
 import com.autonavi.mapapi.MapActivity;
@@ -274,8 +277,9 @@ public class Main extends MapActivity implements RouteMessageHandler,
 							&& endStr.equals(POINT_IN_MAP)) {// 起终点都点选
 						calculateRoute.setClickable(false);
 						try {
-
-							displayRoute(startPoint, endPoint, mode);
+							//TODO 显示对话框包括创建队伍和搜索队伍
+							TeamListDialog(startPoint,endPoint);
+//							displayRoute(startPoint, endPoint, mode);
 						} catch (IllegalArgumentException e) {
 
 						} catch (Exception e1) {
@@ -354,7 +358,7 @@ public class Main extends MapActivity implements RouteMessageHandler,
 
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
-			// TODO Auto-generated method stub
+		
 			return mGestureDetector.onTouchEvent(event);
 		}
 
@@ -365,7 +369,7 @@ public class Main extends MapActivity implements RouteMessageHandler,
 	public void onDrag(MapView mapView, RouteOverlay overlay, int index,
 			GeoPoint newPos) {
 		Log.v("SPAN", "on drag");
-		// TODO Auto-generated method stub
+	
 	}
 
 	// RouteOverlay拖动开始时触发
@@ -374,7 +378,7 @@ public class Main extends MapActivity implements RouteMessageHandler,
 			GeoPoint pos) {
 		Log.v("SPAN", "on drag Begin");
 		calculateRoute.setClickable(false);
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -406,7 +410,7 @@ public class Main extends MapActivity implements RouteMessageHandler,
 	@Override
 	public boolean onRouteEvent(MapView mapView, RouteOverlay overlay,
 			int index, int action) {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
@@ -417,39 +421,39 @@ public class Main extends MapActivity implements RouteMessageHandler,
 
 	@Override
 	public boolean onDown(MotionEvent e) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 			float velocityY) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public void onLongPress(MotionEvent e) {
-		// TODO Auto-generated method stub
+	
 
 	}
 
 	@Override
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
 			float distanceY) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public void onShowPress(MotionEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public boolean onSingleTapUp(MotionEvent e) {
-		// TODO Auto-generated method stub
+		
 		// mv.removeAllViews(); //会隐掉API的上一步下一步按钮
 		removeMyView(mv);
 		float x = e.getX();
@@ -511,4 +515,34 @@ public class Main extends MapActivity implements RouteMessageHandler,
 	private GestureDetector mGestureDetector = new GestureDetector(this);
 	private Drawable draw;
 	private final int REQUESTCODE = 1;
+	
+	//drinking's code
+	private static final int SEARCH_TEAM=0;
+	private static final int CREATE_TEAM=1;
+
+	public void log(String msg){
+		Log.d("[TaxiSystemLog]","++++++"+msg+"++++++");
+	}
+	public void TeamListDialog(GeoPoint start,GeoPoint end){
+		new AlertDialog.Builder(Main.this).setTitle("操作").setItems(
+		     new String[] { "查找队伍", "创建队伍" },new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface dialog, int which) {
+		            	
+		            	switch(which){
+		            	case SEARCH_TEAM:
+		            		//TODO 发送起始坐标，获取返回的队伍信息
+		            		Intent i=new Intent(Main.this,PickTeamActivity.class);
+		            		startActivity(i);
+		            		log("search team");
+		            		break;
+		            	case CREATE_TEAM:
+		            		log("create team");
+		            		break;
+		            	}
+		            
+		            }
+		        })
+		        .create().show();
+		     
+	}
 }
