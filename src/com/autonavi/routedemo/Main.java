@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -537,6 +538,7 @@ public class Main extends MapActivity implements RouteMessageHandler,
 		            		break;
 		            	case CREATE_TEAM:
 		            		log("create team");
+		            		createTeamDialog();
 		            		break;
 		            	}
 		            
@@ -544,5 +546,11 @@ public class Main extends MapActivity implements RouteMessageHandler,
 		        })
 		        .create().show();
 		     
+	}
+	public void createTeamDialog() {
+		LayoutInflater mInflater=LayoutInflater.from(Main.this);
+		View createteam=mInflater.inflate(R.layout.create_team, null);
+		new AlertDialog.Builder(Main.this).setTitle("Create Team")
+		.setView(createteam).create().show();
 	}
 }

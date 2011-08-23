@@ -16,45 +16,56 @@ import android.widget.TextView;
 public class TeamsListAdapter extends ArrayAdapter<TeamInfo> {
 
 	 private ArrayList<TeamInfo> TeamsInfo;
-	public TeamsListAdapter(Context context, int resource,
-			int textViewResourceId, ArrayList<TeamInfo> teams) {
-		super(context, resource, textViewResourceId, teams);
-		// TODO Auto-generated constructor stub
-		TeamsInfo=teams;
+	 LayoutInflater mInflater;
+		String start_point;
+		String destination;
+		String departure_time;
+	 public TeamsListAdapter(Context context, ArrayList<TeamInfo> objects) {
+		 super(context, 0, objects);
+		TeamsInfo=objects;
+		mInflater=LayoutInflater.from(context);
+		
+        start_point=context.getString(R.string.starting_point);
+        destination=context.getString(R.string.destination);
+        departure_time=context.getString(R.string.departure_time);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-        LinearLayout newView;
+		ViewHolder viewholder=null;
+      
         if (convertView == null) {
-            newView = new LinearLayout(getContext());
-            LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            vi.inflate(R.layout.team_item, newView, true);
+            convertView=mInflater.inflate(R.layout.team_item, null);
+            
+            viewholder=new ViewHolder();
+            viewholder.from=(TextView)convertView.findViewById(R.id.location_from);
+            viewholder.to=(TextView)convertView.findViewById(R.id.location_to);
+            viewholder.time=(TextView)convertView.findViewById(R.id.departure_time);         
+            
+            convertView.setTag(viewholder);
+            
         } else {
-            newView = (LinearLayout) convertView;
+            viewholder = (ViewHolder)convertView.getTag();
         }
+        
         TeamInfo team=TeamsInfo.get(position);
-        TextView from=(TextView)newView.findViewById(R.id.location_from);
-        TextView to=(TextView)newView.findViewById(R.id.location_to);
-        TextView time=(TextView)newView.findViewById(R.id.departure_time);
-        TextView count=(TextView)newView.findViewById(R.id.menber_count);
-        TextView phone=(TextView)newView.findViewById(R.id.leader_phone);
-        TextView explanation=(TextView)newView.findViewById(R.id.explanation);
+        
+        viewholder.from.setText(start_point+team.getFrom());       
+        viewholder.to.setText(destination+team.getTo());
+        viewholder.time.setText(departure_time+team.getTime());
 
-        from.setText(team.getFrom());
-        to.setText(team.getTo());
-        time.setText(team.getTime());
-        count.setText(team.getCount());
-        phone.setText(team.getPhone());
-        explanation.setText(team.getExplanation());
-        
-        
-        return newView;
+              
+        return convertView;
 	}
-	
+	static class ViewHolder {
+	    TextView from;
+	    TextView to;
+	    TextView time;
+
+	}
 
 }
+
 /**
  * 
  * @author drinking
@@ -70,8 +81,13 @@ class TeamInfo{
 	String member_count;
 	String leader_phone;
 	String explanation;
-	TeamInfo(){
-		
+	TeamInfo(String name){
+		from=name;
+		to="xxxx";
+		departure_time="xxxx";
+		member_count="xxxx";
+		leader_phone="xxxx";
+		explanation="xxxx";
 	}
 	public String getFrom() {
 		return from;
