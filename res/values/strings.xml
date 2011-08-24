@@ -7,4 +7,6 @@
      <string name="starting_point">starting point:</string>
     <string name="destination">destination:</string>
     <string name="departure_time">departure time:</string>
+        <string name="phone_number">phone:</string>
+    <string name="details">details：</string>
 </resources>

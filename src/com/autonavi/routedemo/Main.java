@@ -1,11 +1,13 @@
 package com.autonavi.routedemo;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,12 +18,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
@@ -547,10 +554,149 @@ public class Main extends MapActivity implements RouteMessageHandler,
 		        .create().show();
 		     
 	}
+	Spinner datesp;
+	Spinner hoursp;
+	Spinner minutesp;
 	public void createTeamDialog() {
+		
+		
 		LayoutInflater mInflater=LayoutInflater.from(Main.this);
 		View createteam=mInflater.inflate(R.layout.create_team, null);
+		datesp=(Spinner)createteam.findViewById(R.id.datespinner);
+		datesp.setAdapter(createTimeList());
+		hoursp=(Spinner)createteam.findViewById(R.id.hourspinner);
+		hoursp.setAdapter(new BaseAdapter() {
+
+			@Override
+			public int getCount() {
+				// TODO Auto-generated method stub
+				return 24;
+			}
+
+			@Override
+			public Object getItem(int position) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public long getItemId(int position) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				// TODO Auto-generated method stub
+				LinearLayout ll=new LinearLayout(Main.this);
+				TextView tv=new TextView(Main.this);
+				tv.setText(Integer.toString(position)+"时");
+				tv.setTextColor(Color.BLACK);
+				ll.addView(tv);
+				return ll;
+			}
+			
+		});
+		minutesp=(Spinner)createteam.findViewById(R.id.minutespinner);
+		minutesp.setAdapter(new BaseAdapter() {
+
+			@Override
+			public int getCount() {
+				// TODO Auto-generated method stub
+				return 12;
+			}
+
+			@Override
+			public Object getItem(int position) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public long getItemId(int position) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				// TODO Auto-generated method stub
+				LinearLayout ll=new LinearLayout(Main.this);
+				TextView tv=new TextView(Main.this);
+				tv.setText(Integer.toString(position*5)+"分");
+				tv.setTextColor(Color.BLACK);
+				ll.addView(tv);
+				return ll;
+			}
+			
+		});
 		new AlertDialog.Builder(Main.this).setTitle("Create Team")
-		.setView(createteam).create().show();
+		.setView(createteam).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			Log.d(Integer.toString(datesp.getSelectedItemPosition()), "xxxxxxxxxxxx");
+			Log.d(Integer.toString(hoursp.getSelectedItemPosition()), "xxxxxxxxxxxx");
+			Log.d(Integer.toString(minutesp.getSelectedItemPosition()), "xxxxxxxxxxxx");
+				
+			}
+		}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+				
+			}
+		}).create().show();
+		
+	}
+	String []dateInWeek=new String [7];
+	public BaseAdapter createTimeList() {
+		long today=System.currentTimeMillis();
+		Calendar c = Calendar.getInstance();
+		
+		for(int i=0;i<7;i++) {
+			dateInWeek[i]=Integer.toString(c.get(Calendar.YEAR))+"-"
+						 +Integer.toString(c.get(Calendar.MONTH))+"-"
+						 +Integer.toString(c.get(Calendar.DATE));
+			today+=1000*60*60*24;
+			c.setTimeInMillis(today);
+		}
+		BaseAdapter ba=new BaseAdapter() {
+
+
+			@Override
+			public int getCount() {
+				// TODO Auto-generated method stub
+				return 7;
+			}
+
+			@Override
+			public Object getItem(int position) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public long getItemId(int position) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				
+				LinearLayout ll=new LinearLayout(Main.this);
+				TextView tv=new TextView(Main.this);
+				tv.setTextColor(Color.BLACK);
+				tv.setText(dateInWeek[position]);
+				ll.addView(tv);
+				
+				return ll;				
+			}
+			
+		};
+		return ba;
+		
 	}
 }

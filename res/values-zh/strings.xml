@@ -6,5 +6,7 @@
     <string name="ok">OK</string>
     <string name="starting_point">起点：</string>
     <string name="destination">终点：</string>
-    <string name="departure_time">出发时间：</string>
+    <string name="departure_time">时间：</string>
+    <string name="phone_number">手机：</string>
+    <string name="details">详细：</string>
 </resources>
