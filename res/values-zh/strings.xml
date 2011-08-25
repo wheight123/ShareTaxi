@@ -9,4 +9,7 @@
     <string name="departure_time">时间：</string>
     <string name="phone_number">手机：</string>
     <string name="details">详细：</string>
+    <string name="people_count">组队人数：</string>
+    <string name="call">呼叫</string>
+    <string name="message">短信</string>
 </resources>

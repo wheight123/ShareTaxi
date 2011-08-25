@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,14 +81,14 @@ class TeamInfo{
 	String departure_time;
 	String member_count;
 	String leader_phone;
-	String explanation;
-	TeamInfo(String name){
+	String details;
+	TeamInfo(String name,String destination,String time,String count,String phone,String detail){
 		from=name;
-		to="xxxx";
-		departure_time="xxxx";
-		member_count="xxxx";
-		leader_phone="xxxx";
-		explanation="xxxx";
+		to=destination;
+		departure_time=time;
+		member_count=count;
+		leader_phone=phone;
+		details=detail;
 	}
 	public String getFrom() {
 		return from;
@@ -105,6 +106,14 @@ class TeamInfo{
 		return leader_phone;
 	}
 	public String getExplanation() {
-		return explanation;
+		return details;
+	}
+	public void print() {
+		Log.d("[TeamInfo-Log]", from);
+		Log.d("[TeamInfo-Log]", to);
+		Log.d("[TeamInfo-Log]", departure_time);
+		Log.d("[TeamInfo-Log]", member_count);
+		Log.d("[TeamInfo-Log]", leader_phone);
+		Log.d("[TeamInfo-Log]", details);		
 	}
 }

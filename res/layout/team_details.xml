@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="wrap_content" 
+			android:layout_width="match_parent" 
+			android:id="@+id/scrollView1"
+			xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+   
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout1">
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView1" android:text="@string/starting_point" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+        <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/startpoint_textview" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="TextView"></TextView>
+    </LinearLayout>
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout2">
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView2" android:text="@string/destination" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+        <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/destination_textview" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="TextView"></TextView>
+    </LinearLayout>
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout3">
+        <TextView android:layout_height="wrap_content" 
+        		  android:layout_width="wrap_content" 
+        		  android:id="@+id/textView3" 
+        		  android:text="@string/departure_time" 
+        		  android:textAppearance="?android:attr/textAppearanceMedium"
+        		  android:layout_gravity="center">
+        </TextView>
+        <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/departure_time_textview" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="TextView"></TextView>
+        </LinearLayout>
+       <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout3">
+        <TextView android:layout_height="wrap_content" 
+        		  android:layout_width="wrap_content" 
+        		  android:id="@+id/textView3" 
+        		  android:text="@string/people_count" 
+        		  android:textAppearance="?android:attr/textAppearanceMedium"
+        		  android:layout_gravity="center">
+        </TextView>
+        <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/people_count_textview" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="TextView"></TextView>
+        </LinearLayout>
+      <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout3">
+    </LinearLayout>
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout4">
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView4" android:text="@string/phone_number" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+        <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/phone_number_textview" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="TextView"></TextView>
+        <Button android:text="@string/call" android:id="@+id/call_button" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+        <Button android:text="@string/message" android:id="@+id/message_button" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    </LinearLayout>
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout5">
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView10" android:text="@string/details" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+        <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/details" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="TextView"></TextView>
+    </LinearLayout>
+    
+</LinearLayout>
+ </ScrollView>

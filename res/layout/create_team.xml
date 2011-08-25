@@ -13,13 +13,13 @@
    
     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout1">
         <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView1" android:text="@string/starting_point" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
-        <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/editText1">
+        <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/starting_point_editText">
             <requestFocus></requestFocus>
         </EditText>
     </LinearLayout>
     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout2">
         <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView2" android:text="@string/destination" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
-        <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/editText2"></EditText>
+        <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/destination_editText"></EditText>
     </LinearLayout>
     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout3">
         <TextView android:layout_height="wrap_content" 
@@ -38,11 +38,11 @@
     </LinearLayout>
     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout4">
         <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView4" android:text="@string/phone_number" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
-        <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/editText4" android:inputType="phone"></EditText>
+        <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/phone_number_editText" android:inputType="phone"></EditText>
     </LinearLayout>
     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout5">
         <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView5" android:text="@string/details" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
-        <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/editText5" android:inputType="textMultiLine"></EditText>
+        <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/details_editText" android:inputType="textMultiLine"></EditText>
     </LinearLayout>
     
 </LinearLayout>

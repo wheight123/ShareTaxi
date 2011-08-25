@@ -25,6 +25,7 @@ import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -557,11 +558,19 @@ public class Main extends MapActivity implements RouteMessageHandler,
 	Spinner datesp;
 	Spinner hoursp;
 	Spinner minutesp;
+	EditText startEditText;
+	EditText destinationEditText;
+	EditText phoneEditText;
+	EditText detailsEditText;
 	public void createTeamDialog() {
 		
 		
 		LayoutInflater mInflater=LayoutInflater.from(Main.this);
 		View createteam=mInflater.inflate(R.layout.create_team, null);
+		startEditText=(EditText)createteam.findViewById(R.id.starting_point_editText);
+		destinationEditText=(EditText)createteam.findViewById(R.id.destination_editText);
+		phoneEditText=(EditText)createteam.findViewById(R.id.phone_number_editText);
+		detailsEditText=(EditText)createteam.findViewById(R.id.details_editText);
 		datesp=(Spinner)createteam.findViewById(R.id.datespinner);
 		datesp.setAdapter(createTimeList());
 		hoursp=(Spinner)createteam.findViewById(R.id.hourspinner);
@@ -638,6 +647,15 @@ public class Main extends MapActivity implements RouteMessageHandler,
 			Log.d(Integer.toString(datesp.getSelectedItemPosition()), "xxxxxxxxxxxx");
 			Log.d(Integer.toString(hoursp.getSelectedItemPosition()), "xxxxxxxxxxxx");
 			Log.d(Integer.toString(minutesp.getSelectedItemPosition()), "xxxxxxxxxxxx");
+			TeamInfo selectedTeam=new TeamInfo(startEditText.getText().toString(),
+					destinationEditText.getText().toString(),
+					dateInWeek[datesp.getSelectedItemPosition()]
+					           +"-"+Integer.toString(hoursp.getSelectedItemPosition())
+					           +"-"+Integer.toString(minutesp.getSelectedItemPosition()*5),
+					"0",phoneEditText.getText().toString(),
+					detailsEditText.getText().toString());
+			selectedTeam.print();
+			//TODO 发送创建队伍信息
 				
 			}
 		}).setNegativeButton("取消", new DialogInterface.OnClickListener() {

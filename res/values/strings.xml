@@ -9,4 +9,7 @@
     <string name="departure_time">departure time:</string>
         <string name="phone_number">phone:</string>
     <string name="details">details：</string>
+    <string name="people_count">people in team:</string>
+    <string name="call">call</string>
+    <string name="message">IM</string>
 </resources>
