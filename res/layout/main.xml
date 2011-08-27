@@ -14,6 +14,7 @@
   android:apiKey="D2091D3F287D77BD876B83392574A76DEBE8A151A69F6A52D8DC1884D6CA3C4007AC124066507C89" 
   >
   </com.autonavi.mapapi.MapView>
+  <!-- 
   <LinearLayout 
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="horizontal"
@@ -73,4 +74,5 @@
   ></ImageButton>
   </LinearLayout>
   </LinearLayout>
+  -->
 </FrameLayout>

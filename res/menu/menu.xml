@@ -2,13 +2,18 @@
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
    <item
-  android:id="@+id/about"
-  android:title="关于"
+  android:id="@+id/share_taxi"
+  android:title="拼车"
   android:icon="@drawable/help"
   ></item>
    <item
-  android:id="@+id/exit"
-  android:title="退出"
+  android:id="@+id/my_team"
+  android:title="我的队伍"
+  android:icon="@drawable/exit"
+  ></item>
+   <item
+  android:id="@+id/team_search"
+  android:title="搜索"
   android:icon="@drawable/exit"
   ></item>
 </menu>

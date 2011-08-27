@@ -61,17 +61,20 @@ public class Main extends MapActivity implements RouteMessageHandler,
 	}
 
 	private void setInitView() {
+		/*
 		calculateRoute = (Button) this.findViewById(R.id.CalculateRoute);
 		setSearch = (Button) this.findViewById(R.id.setStartAndEnd);
 		driving = (ImageButton) this.findViewById(R.id.driving);
 		bus = (ImageButton) this.findViewById(R.id.bus);
 		walk = (ImageButton) this.findViewById(R.id.walk);
+		
 		calculateRoute.setOnClickListener(clickListener);
 		setSearch.setOnClickListener(clickListener);
 		driving.setOnClickListener(clickListener);
 		bus.setOnClickListener(clickListener);
 		bus.setBackgroundResource(R.drawable.transit_down);
 		walk.setOnClickListener(clickListener);
+		*/
 		mv.setLongClickable(true);
 		mGestureDetector.setIsLongpressEnabled(true);
 	}
@@ -116,51 +119,56 @@ public class Main extends MapActivity implements RouteMessageHandler,
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
 		switch (item.getItemId()) {
-		case R.id.exit: {
-			// // 调用系统home键退出
-			// Intent i = new Intent(Intent.ACTION_MAIN);
-			// i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			// i.addCategory(Intent.CATEGORY_HOME);
-			// startActivity(i);
-			// break;
-			// 2.1 退出有效
-			// ActivityManager manager = (ActivityManager) this
-			// .getSystemService(this.getApplicationContext().ACTIVITY_SERVICE);
-			// manager.restartPackage(this.getPackageName());
-			this.finish();
+		case R.id.share_taxi:{
+//				calculateRoute.setClickable(true);
+				Intent intent = new Intent(Main.this, SearchInput.class);
+				Bundle dle = new Bundle();
+				dle.putString("start", startStr);
+				dle.putString("end", endStr);
+				dle.putString("mode", String.valueOf(mode));
+				intent.putExtras(dle);
+				if (routeOverlay != null) {
+					routeOverlay.removeFromMap(mv);
+				}
+				Main.this.startActivityForResult(intent, REQUESTCODE);
 			break;
 		}
-		case R.id.about: {
-			new AlertDialog.Builder(Main.this).setMessage(R.string.about)
-					.create().show();
+		case R.id.my_team:{
+			//TODO assgined to wanghui
+			// 向服务器获取 参与的队伍信息
+			
 			break;
-		}
+			}
+		case R.id.team_search:
+			//进入队伍搜索Dialog，并发送至服务器以获取需要的队伍信息
+			
+			break;
 		default:
 			break;
 		}
 		return false;
 	}
 
-	private void setModeBackResource(int mode) {
-
-		if (mode == Route.DrivingDefault) {
-			driving.setBackgroundResource(R.drawable.driving_down);
-			walk.setBackgroundResource(R.drawable.walk);
-			bus.setBackgroundResource(R.drawable.transit);
-		} else if (mode == Route.BusDefault) {
-			bus.setBackgroundResource(R.drawable.transit_down);
-			walk.setBackgroundResource(R.drawable.walk);
-			driving.setBackgroundResource(R.drawable.driving);
-		} else if (mode == Route.WalkDefault) {
-			walk.setBackgroundResource(R.drawable.walk_down);
-			bus.setBackgroundResource(R.drawable.transit);
-			driving.setBackgroundResource(R.drawable.driving);
-		}
-	}
+//	private void setModeBackResource(int mode) {
+//
+//		if (mode == Route.DrivingDefault) {
+//			driving.setBackgroundResource(R.drawable.driving_down);
+//			walk.setBackgroundResource(R.drawable.walk);
+//			bus.setBackgroundResource(R.drawable.transit);
+//		} else if (mode == Route.BusDefault) {
+//			bus.setBackgroundResource(R.drawable.transit_down);
+//			walk.setBackgroundResource(R.drawable.walk);
+//			driving.setBackgroundResource(R.drawable.driving);
+//		} else if (mode == Route.WalkDefault) {
+//			walk.setBackgroundResource(R.drawable.walk_down);
+//			bus.setBackgroundResource(R.drawable.transit);
+//			driving.setBackgroundResource(R.drawable.driving);
+//		}
+//	}
 
 	OnClickListener clickListener = new OnClickListener() {
 		public void reCalculate(int mode, GeoPoint start, GeoPoint end) {
-			setModeBackResource(mode);
+	//		setModeBackResource(mode);
 			if ((startPoint != null) && (endPoint != null)) {
 				if (oldMode != mode) {
 					try {
@@ -177,6 +185,7 @@ public class Main extends MapActivity implements RouteMessageHandler,
 
 		@Override
 		public void onClick(View v) {
+			/*
 			// 计算路径
 			if (calculateRoute.equals(v)) {
 				if (selectPointStart != null && selectPointEnd != null) {
@@ -233,6 +242,7 @@ public class Main extends MapActivity implements RouteMessageHandler,
 					reCalculate(mode, startPoint, endPoint);
 				}
 			}
+			*/
 			// MapView 点击选择起点
 			if (popupDipStart != null && popupDipStart.equals(v)) {
 				startPoint = tempPoint;
@@ -273,7 +283,7 @@ public class Main extends MapActivity implements RouteMessageHandler,
 				String modeTemp = bundle.getString("mode");
 				if (modeTemp != null && (!modeTemp.equals(""))) {
 					mode = Integer.parseInt(modeTemp);
-					setModeBackResource(mode);
+//					setModeBackResource(mode);
 				}
 				if (dip.equals("startDip")) {// 点击起点点选跳转到此
 					showToast("在地图上点击您的起点");
@@ -284,10 +294,16 @@ public class Main extends MapActivity implements RouteMessageHandler,
 				} else if (dip.equals("okDip")) {// 点击确定按钮跳转到此
 					if (startStr.equals(POINT_IN_MAP)
 							&& endStr.equals(POINT_IN_MAP)) {// 起终点都点选
-						calculateRoute.setClickable(false);
+//						calculateRoute.setClickable(false);
 						try {
 							//TODO 显示对话框包括创建队伍和搜索队伍
 							TeamListDialog(startPoint,endPoint);
+							Log.d(Integer.toString(startPoint.getLatitudeE6()),
+									Integer.toString(startPoint.getLongitudeE6()));
+							Log.d(Integer.toString(endPoint.getLatitudeE6()),
+									Integer.toString(endPoint.getLongitudeE6()));
+							double distance=CalculateMethod.GetDistance(startPoint.getLatitudeE6()*0.86, startPoint.getLongitudeE6(), endPoint.getLatitudeE6()*0.86, endPoint.getLongitudeE6());
+							Toast.makeText(Main.this, "两地距离为"+Double.toString(distance)+"公里", Toast.LENGTH_LONG).show();
 //							displayRoute(startPoint, endPoint, mode);
 						} catch (IllegalArgumentException e) {
 
