@@ -2,8 +2,8 @@
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
    <item
-  android:id="@+id/share_taxi"
-  android:title="拼车"
+  android:id="@+id/rought_search"
+  android:title="快速拼车"
   android:icon="@drawable/help"
   ></item>
    <item
@@ -12,8 +12,8 @@
   android:icon="@drawable/exit"
   ></item>
    <item
-  android:id="@+id/team_search"
-  android:title="搜索"
+  android:id="@+id/accurate_search"
+  android:title="精确拼车"
   android:icon="@drawable/exit"
   ></item>
 </menu>

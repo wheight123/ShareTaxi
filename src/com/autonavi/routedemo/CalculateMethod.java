@@ -8,7 +8,11 @@ public class CalculateMethod {
 	}
 	public static double GetDistance(double lat1, double lng1, double lat2, double lng2)
 	{
-
+		//example 30.xxxx 120.xxxx
+		lat1/=1E6;
+		lng1/=1E6;
+		lat2/=1E6;
+		lng2/=1E6;
 	   double radLat1 = rad(lat1);
 	   double radLat2 = rad(lat2);
 	   double a = radLat1 - radLat2;

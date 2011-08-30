@@ -5,9 +5,12 @@ import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,21 @@ public class PickTeamActivity extends ListActivity implements OnClickListener {
 
 	TeamsListAdapter mTeamsAdapter;
 	ArrayList<TeamInfo> teamsinfo=new ArrayList<TeamInfo>();
+	ProgressDialog progressDialog;
+	Handler mHandler=new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			switch(msg.what) {
+			case MyApplication.REFRESH_LOADED_MESSAGE:
+				mTeamsAdapter.notifyDataSetChanged();
+				if(progressDialog.isShowing())
+					progressDialog.cancel();
+				break;
+			}
+		}
+		
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +45,20 @@ public class PickTeamActivity extends ListActivity implements OnClickListener {
         
         final ListView listView = getListView();
         listView.setItemsCanFocus(false);
-        //显示模式进一步考虑
-        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listView.setFastScrollEnabled(true);
-        loadTeamsInfo();
-
-        
+       
         mTeamsAdapter=new TeamsListAdapter(PickTeamActivity.this,teamsinfo);
         this.setListAdapter(mTeamsAdapter);
+        progressDialog=new ProgressDialog(PickTeamActivity.this);
+        progressDialog.show();
+       new Thread(){
+    	   public void run(){
+    		   
+    		   loadTeamsInfo();
+    		   
+    	   }
+       }.start(); 
+        
 
 	}
 	
@@ -45,10 +69,17 @@ public class PickTeamActivity extends ListActivity implements OnClickListener {
 	}
 
 	public void loadTeamsInfo() {
-		for(int i=0;i<100;i++) {
+		// 发送MyApplication中的 坐标给服务器 
+		// 获取队伍信息 该函数在线程中调用
+		ArrayList<TeamInfo> addedInfo=new ArrayList<TeamInfo>();
+		for(int i=0;i<1000;i++) {
 			String name="drinking"+Integer.toString(i);
-			teamsinfo.add(new TeamInfo(name,"aaaaaa","bbbbbb","cccccc","ddddd","eeeeee"));
+			addedInfo.add(new TeamInfo(name,"aaaaaa","bbbbbb","cccccc","ddddd","eeeeee"));
 		}
+		teamsinfo.addAll(addedInfo);
+		mHandler.sendEmptyMessage(MyApplication.REFRESH_LOADED_MESSAGE);
+		
+		
 	}
 	public void showTeamDetail(int position) {
 		TeamInfo pickedTeam=teamsinfo.get(position);

@@ -35,6 +35,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.autonavi.mapapi.GeoPoint;
 import com.autonavi.mapapi.MapActivity;
+import com.autonavi.mapapi.MapController;
 import com.autonavi.mapapi.MapView;
 import com.autonavi.mapapi.PoiPagedResult;
 import com.autonavi.mapapi.PoiSearch;
@@ -51,7 +52,9 @@ import com.autonavi.mapapi.Route.FromAndTo;
 public class Main extends MapActivity implements RouteMessageHandler,
 		OnGestureListener {
 	/** Called when the activity is first created. */
-
+	//drinking add variable
+	MapController ctrlMap = null;
+	MyLocation myLocation;
 	public void onCreate(Bundle savedInstancedState) {
 		super.onCreate(savedInstancedState);
 		setContentView(R.layout.main);
@@ -77,6 +80,13 @@ public class Main extends MapActivity implements RouteMessageHandler,
 		*/
 		mv.setLongClickable(true);
 		mGestureDetector.setIsLongpressEnabled(true);
+		myLocation=new MyLocation(Main.this,mv);
+		myLocation.enableMyLocation();
+		myLocation.enableCompass(); //指南针
+		ctrlMap=mv.getController();
+		
+		
+		
 	}
 
 	private void showPoiOverlay(String poiType, String cityStr, boolean start) {
@@ -119,18 +129,25 @@ public class Main extends MapActivity implements RouteMessageHandler,
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
 		switch (item.getItemId()) {
-		case R.id.share_taxi:{
+		case R.id.rought_search:{
+			
+			GeoPoint location=myLocation.getMyLocation();
+			if(location!=null) {
+				//快速搜索，快速搜索设置可以进入设置界面设定
+				Log.d(Integer.toString(location.getLatitudeE6()),Integer.toString(location.getLongitudeE6()));
+        		Intent i=new Intent(Main.this,PickTeamActivity.class);
+        		
+        		//TODO 设置MyApplication中的坐标 用于在PickTeamActivity中调用
+        		MyApplication.start_lat=location.getLatitudeE6();
+        		MyApplication.start_lon=location.getLongitudeE6();
+        		MyApplication.end_lat=0;
+        		MyApplication.end_lon=0;
+        		
+        		startActivity(i);
+				
+			}
 //				calculateRoute.setClickable(true);
-				Intent intent = new Intent(Main.this, SearchInput.class);
-				Bundle dle = new Bundle();
-				dle.putString("start", startStr);
-				dle.putString("end", endStr);
-				dle.putString("mode", String.valueOf(mode));
-				intent.putExtras(dle);
-				if (routeOverlay != null) {
-					routeOverlay.removeFromMap(mv);
-				}
-				Main.this.startActivityForResult(intent, REQUESTCODE);
+
 			break;
 		}
 		case R.id.my_team:{
@@ -139,8 +156,17 @@ public class Main extends MapActivity implements RouteMessageHandler,
 			
 			break;
 			}
-		case R.id.team_search:
-			//进入队伍搜索Dialog，并发送至服务器以获取需要的队伍信息
+		case R.id.accurate_search:
+			Intent intent = new Intent(Main.this, SearchInput.class);
+			Bundle dle = new Bundle();
+			dle.putString("start", startStr);
+			dle.putString("end", endStr);
+			dle.putString("mode", String.valueOf(mode));
+			intent.putExtras(dle);
+			if (routeOverlay != null) {
+				routeOverlay.removeFromMap(mv);
+			}
+			Main.this.startActivityForResult(intent, REQUESTCODE);
 			
 			break;
 		default:
@@ -302,8 +328,6 @@ public class Main extends MapActivity implements RouteMessageHandler,
 									Integer.toString(startPoint.getLongitudeE6()));
 							Log.d(Integer.toString(endPoint.getLatitudeE6()),
 									Integer.toString(endPoint.getLongitudeE6()));
-							double distance=CalculateMethod.GetDistance(startPoint.getLatitudeE6()*0.86, startPoint.getLongitudeE6(), endPoint.getLatitudeE6()*0.86, endPoint.getLongitudeE6());
-							Toast.makeText(Main.this, "两地距离为"+Double.toString(distance)+"公里", Toast.LENGTH_LONG).show();
 //							displayRoute(startPoint, endPoint, mode);
 						} catch (IllegalArgumentException e) {
 
