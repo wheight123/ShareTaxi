@@ -12,4 +12,5 @@
     <string name="people_count">people in team:</string>
     <string name="call">call</string>
     <string name="message">IM</string>
+    <string name="cannot_locate">can not locate your position</string>
 </resources>

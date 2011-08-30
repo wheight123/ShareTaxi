@@ -109,7 +109,7 @@ public class PickTeamActivity extends ListActivity implements OnClickListener {
 		
 		//which -1 positive ,-2 neagtive
 		if(-1==which) {
-			// TODO 提交组队信息 自己的ID和队伍ID 绑定
+			// TODO 提交组队信息 自己的ID和队伍ID 
 		}
 	}
 

@@ -12,4 +12,5 @@
     <string name="people_count">组队人数：</string>
     <string name="call">呼叫</string>
     <string name="message">短信</string>
+    <string name="cannot_locate">无法定位您的当前位置，请确保GPS和网络的开启</string>
 </resources>

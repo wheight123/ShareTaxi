@@ -137,7 +137,7 @@ public class Main extends MapActivity implements RouteMessageHandler,
 				Log.d(Integer.toString(location.getLatitudeE6()),Integer.toString(location.getLongitudeE6()));
         		Intent i=new Intent(Main.this,PickTeamActivity.class);
         		
-        		//TODO 设置MyApplication中的坐标 用于在PickTeamActivity中调用
+        		// 设置MyApplication中全局变量的坐标 用于在PickTeamActivity中调用
         		MyApplication.start_lat=location.getLatitudeE6();
         		MyApplication.start_lon=location.getLongitudeE6();
         		MyApplication.end_lat=0;
@@ -145,14 +145,16 @@ public class Main extends MapActivity implements RouteMessageHandler,
         		
         		startActivity(i);
 				
+			}else {
+				Toast.makeText(Main.this, R.string.cannot_locate, Toast.LENGTH_LONG).show();
 			}
 //				calculateRoute.setClickable(true);
 
 			break;
 		}
 		case R.id.my_team:{
-			//TODO assgined to wanghui
-			// 向服务器获取 参与的队伍信息
+			
+			// TODO 向服务器获取 参与的队伍信息 用户信息暂存MyApplication中
 			
 			break;
 			}
@@ -322,12 +324,9 @@ public class Main extends MapActivity implements RouteMessageHandler,
 							&& endStr.equals(POINT_IN_MAP)) {// 起终点都点选
 //						calculateRoute.setClickable(false);
 						try {
-							//TODO 显示对话框包括创建队伍和搜索队伍
-							TeamListDialog(startPoint,endPoint);
-							Log.d(Integer.toString(startPoint.getLatitudeE6()),
-									Integer.toString(startPoint.getLongitudeE6()));
-							Log.d(Integer.toString(endPoint.getLatitudeE6()),
-									Integer.toString(endPoint.getLongitudeE6()));
+							// 显示对话框包括创建队伍和搜索队伍
+							TeamListDialog();
+
 //							displayRoute(startPoint, endPoint, mode);
 						} catch (IllegalArgumentException e) {
 
@@ -572,15 +571,19 @@ public class Main extends MapActivity implements RouteMessageHandler,
 	public void log(String msg){
 		Log.d("[TaxiSystemLog]","++++++"+msg+"++++++");
 	}
-	public void TeamListDialog(GeoPoint start,GeoPoint end){
+	public void TeamListDialog(){
 		new AlertDialog.Builder(Main.this).setTitle("操作").setItems(
 		     new String[] { "查找队伍", "创建队伍" },new DialogInterface.OnClickListener() {
 		            public void onClick(DialogInterface dialog, int which) {
 		            	
 		            	switch(which){
 		            	case SEARCH_TEAM:
-		            		//TODO 发送起始坐标，获取返回的队伍信息
+		            		// 设置起始坐标，启动activity获取返回的队伍信息
 		            		Intent i=new Intent(Main.this,PickTeamActivity.class);
+		            		MyApplication.start_lat=startPoint.getLatitudeE6();
+		            		MyApplication.start_lon=startPoint.getLongitudeE6();
+		            		MyApplication.end_lat=endPoint.getLatitudeE6();
+		            		MyApplication.end_lon=endPoint.getLongitudeE6();
 		            		startActivity(i);
 		            		log("search team");
 		            		break;
@@ -684,18 +687,17 @@ public class Main extends MapActivity implements RouteMessageHandler,
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-			Log.d(Integer.toString(datesp.getSelectedItemPosition()), "xxxxxxxxxxxx");
-			Log.d(Integer.toString(hoursp.getSelectedItemPosition()), "xxxxxxxxxxxx");
-			Log.d(Integer.toString(minutesp.getSelectedItemPosition()), "xxxxxxxxxxxx");
+
 			TeamInfo selectedTeam=new TeamInfo(startEditText.getText().toString(),
 					destinationEditText.getText().toString(),
 					dateInWeek[datesp.getSelectedItemPosition()]
-					           +"-"+Integer.toString(hoursp.getSelectedItemPosition())
-					           +"-"+Integer.toString(minutesp.getSelectedItemPosition()*5),
+					           +" "+Integer.toString(hoursp.getSelectedItemPosition())
+					           +":"+Integer.toString(minutesp.getSelectedItemPosition()*5)
+					           +":00",
 					"0",phoneEditText.getText().toString(),
 					detailsEditText.getText().toString());
 			selectedTeam.print();
-			//TODO 发送创建队伍信息
+			//TODO 可以直接构造json对象 发送创建队伍信息 
 				
 			}
 		}).setNegativeButton("取消", new DialogInterface.OnClickListener() {

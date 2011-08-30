@@ -98,6 +98,7 @@ public final class R {
         public static final int about=0x7f040002;
         public static final int app_name=0x7f040001;
         public static final int call=0x7f04000a;
+        public static final int cannot_locate=0x7f04000c;
         public static final int departure_time=0x7f040006;
         public static final int destination=0x7f040005;
         public static final int details=0x7f040008;
